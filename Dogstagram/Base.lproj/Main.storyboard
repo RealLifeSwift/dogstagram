@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xwL-60-ABZ">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dogstagram-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Dogstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MLR-G0-yvi">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="EHz-qF-hWL">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FeO-Ae-s4o">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MLR-G0-yvi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Nnt-Rs-fEl"/>
+                            <constraint firstItem="MLR-G0-yvi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RU4-Sb-ERR"/>
+                            <constraint firstItem="MLR-G0-yvi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hbn-kG-gZi"/>
+                            <constraint firstItem="MLR-G0-yvi" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iUE-pQ-F7s"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Dogstagram" id="TXq-Jt-Un1"/>
+                    <connections>
+                        <outlet property="collectionView" destination="MLR-G0-yvi" id="gyS-df-Hvf"/>
+                        <segue destination="deC-g5-mEt" kind="show" identifier="viewImageSegueIdentifier" id="yjS-K5-jef"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="980" y="25.637181409295355"/>
+        </scene>
+        <!--Image Viewer View Controller-->
+        <scene sceneID="uoQ-BI-oee">
+            <objects>
+                <viewController id="deC-g5-mEt" customClass="ImageViewerViewController" customModule="Dogstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HAK-sc-YSB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lWA-yi-dmh">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lWA-yi-dmh" firstAttribute="bottom" secondItem="1i0-eI-Ksg" secondAttribute="bottom" id="5Qh-yD-6Y0"/>
+                            <constraint firstItem="lWA-yi-dmh" firstAttribute="trailing" secondItem="1i0-eI-Ksg" secondAttribute="trailing" id="Orx-Iy-C4j"/>
+                            <constraint firstItem="lWA-yi-dmh" firstAttribute="leading" secondItem="1i0-eI-Ksg" secondAttribute="leading" id="w7l-IU-hCW"/>
+                            <constraint firstItem="lWA-yi-dmh" firstAttribute="top" secondItem="1i0-eI-Ksg" secondAttribute="top" id="zx5-Dj-fXH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1i0-eI-Ksg"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="lWA-yi-dmh" id="Aiz-H1-E8d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nEU-3e-mQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1749.5999999999999" y="25.637181409295355"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xd2-L1-yWz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xwL-60-ABZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2it-X8-sbL">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Lin-uM-uNr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TzM-xH-TPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
+        </scene>
+    </scenes>
+</document>
