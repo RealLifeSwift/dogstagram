@@ -8,6 +8,11 @@ struct Item {
 
 class ViewController: UIViewController {
 
+  enum Mode {
+    case view
+    case select
+  }
+  
   @IBOutlet weak var collectionView: UICollectionView!
   
   var items: [Item] = [Item(imageName: "1"),
@@ -27,9 +32,45 @@ class ViewController: UIViewController {
   let cellIdentifier = "ItemCollectionViewCell"
   let viewImageSegueIdentifier = "viewImageSegueIdentifier"
   
+  var mMode: Mode = .view {
+    didSet {
+      switch mMode {
+      case .view:
+        for (key, value) in dictionarySelectedIndecPath {
+          if value {
+            collectionView.deselectItem(at: key, animated: true)
+          }
+        }
+        
+        dictionarySelectedIndecPath.removeAll()
+        
+        selectBarButton.title = "Select"
+        navigationItem.leftBarButtonItem = nil
+        collectionView.allowsMultipleSelection = false
+      case .select:
+        selectBarButton.title = "Cancel"
+        navigationItem.leftBarButtonItem = deleteBarButton
+        collectionView.allowsMultipleSelection = true
+      }
+    }
+  }
+  
+  lazy var selectBarButton: UIBarButtonItem = {
+    let barButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(didSelectButtonClicked(_:)))
+    return barButtonItem
+  }()
+
+  lazy var deleteBarButton: UIBarButtonItem = {
+    let barButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(didDeleteButtonClicked(_:)))
+    return barButtonItem
+  }()
+  
+  var dictionarySelectedIndecPath: [IndexPath: Bool] = [:]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    setupBarButtonItems()
     setupCollectionView()
   }
   
@@ -47,6 +88,10 @@ class ViewController: UIViewController {
       }
     }
   }
+  
+  private func setupBarButtonItems() {
+    navigationItem.rightBarButtonItem = selectBarButton
+  }
 
   private func setupCollectionView() {
     collectionView.delegate = self
@@ -57,7 +102,7 @@ class ViewController: UIViewController {
   
   private func setupCollectionViewItemSize() {
     if collectionViewFlowLayout == nil {
-      let numberOfItemPerRow: CGFloat = 2
+      let numberOfItemPerRow: CGFloat = 3
       let lineSpacing: CGFloat = 5
       let interItemSpacing: CGFloat = 5
       
@@ -74,6 +119,26 @@ class ViewController: UIViewController {
       
       collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
     }
+  }
+  
+  @objc func didSelectButtonClicked(_ sender: UIBarButtonItem) {
+    mMode = mMode == .view ? .select : .view
+  }
+  
+  @objc func didDeleteButtonClicked(_ sender: UIBarButtonItem) {
+    var deleteNeededIndexPaths: [IndexPath] = []
+    for (key, value) in dictionarySelectedIndecPath {
+      if value {
+        deleteNeededIndexPaths.append(key)
+      }
+    }
+    
+    for i in deleteNeededIndexPaths.sorted(by: { $0.item > $1.item }) {
+      items.remove(at: i.item)
+    }
+    
+    collectionView.deleteItems(at: deleteNeededIndexPaths)
+    dictionarySelectedIndecPath.removeAll()
   }
   
 }
@@ -93,8 +158,20 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let item = items[indexPath.item]
-    performSegue(withIdentifier: viewImageSegueIdentifier, sender: item)
+    switch mMode {
+    case .view:
+      collectionView.deselectItem(at: indexPath, animated: true)
+      let item = items[indexPath.item]
+      performSegue(withIdentifier: viewImageSegueIdentifier, sender: item)
+    case .select:
+      dictionarySelectedIndecPath[indexPath] = true
+    }
+  }
+    
+  func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    if mMode == .select {
+      dictionarySelectedIndecPath[indexPath] = false
+    }
   }
   
 }

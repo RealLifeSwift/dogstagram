@@ -22,10 +22,27 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Mb-KY-rhT">
                         <rect key="frame" x="0.0" y="0.0" width="206" height="195"/>
                     </imageView>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0K-1X-eTn">
+                        <rect key="frame" x="0.0" y="0.0" width="206" height="195"/>
+                        <color key="backgroundColor" white="1" alpha="0.50234854294478526" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="sgb-ZF-A2E">
+                        <rect key="frame" x="168" y="157" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="LQ1-ds-B2v"/>
+                            <constraint firstAttribute="width" constant="30" id="wiM-FM-wNq"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="sgb-ZF-A2E" secondAttribute="bottom" constant="8" id="7wa-vh-tUf"/>
+                <constraint firstItem="r0K-1X-eTn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DuH-f2-lCI"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="sgb-ZF-A2E" secondAttribute="trailing" constant="8" id="ELE-PW-Ons"/>
+                <constraint firstAttribute="bottom" secondItem="r0K-1X-eTn" secondAttribute="bottom" id="FHd-E8-aWU"/>
                 <constraint firstAttribute="bottom" secondItem="9Mb-KY-rhT" secondAttribute="bottom" id="O1P-ye-aGM"/>
+                <constraint firstAttribute="trailing" secondItem="r0K-1X-eTn" secondAttribute="trailing" id="UA4-Oh-ZWv"/>
+                <constraint firstItem="r0K-1X-eTn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YXZ-en-xFR"/>
                 <constraint firstItem="9Mb-KY-rhT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="eVY-kI-Zez"/>
                 <constraint firstAttribute="trailing" secondItem="9Mb-KY-rhT" secondAttribute="trailing" id="gWW-Tm-HuE"/>
                 <constraint firstItem="9Mb-KY-rhT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xue-qd-vUX"/>
@@ -33,9 +50,14 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="206" height="195"/>
             <connections>
+                <outlet property="highlightIndicator" destination="r0K-1X-eTn" id="xIB-5V-7Sz"/>
                 <outlet property="imageView" destination="9Mb-KY-rhT" id="SCR-AV-KUU"/>
+                <outlet property="selectIndicator" destination="sgb-ZF-A2E" id="mcC-g8-hv6"/>
             </connections>
             <point key="canvasLocation" x="257.60000000000002" y="219.94002998500753"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_check" width="30" height="30"/>
+    </resources>
 </document>
