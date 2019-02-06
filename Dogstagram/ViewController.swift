@@ -67,16 +67,20 @@ class ViewController: UIViewController {
   
   var dictionarySelectedIndecPath: [IndexPath: Bool] = [:]
   
+  let lineSpacing: CGFloat = 5
+  let interItemSpacing: CGFloat = 5
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     setupBarButtonItems()
     setupCollectionView()
+    setupCollectionViewItemSize()
   }
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    setupCollectionViewItemSize()
+    updateCollectionViewItemSize()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -102,16 +106,8 @@ class ViewController: UIViewController {
   
   private func setupCollectionViewItemSize() {
     if collectionViewFlowLayout == nil {
-      let numberOfItemPerRow: CGFloat = 3
-      let lineSpacing: CGFloat = 5
-      let interItemSpacing: CGFloat = 5
-      
-      let width = (collectionView.frame.width - (numberOfItemPerRow - 1) * interItemSpacing) / numberOfItemPerRow
-      let height = width
-      
       collectionViewFlowLayout = UICollectionViewFlowLayout()
       
-      collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
       collectionViewFlowLayout.sectionInset = UIEdgeInsets.zero
       collectionViewFlowLayout.scrollDirection = .vertical
       collectionViewFlowLayout.minimumLineSpacing = lineSpacing
@@ -119,6 +115,15 @@ class ViewController: UIViewController {
       
       collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
     }
+  }
+  
+  private func updateCollectionViewItemSize() {
+    let numberOfItemPerRow: CGFloat = 2
+    
+    let width = (collectionView.frame.width - (numberOfItemPerRow - 1) * interItemSpacing) / numberOfItemPerRow
+    let height = width
+    
+    collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
   }
   
   @objc func didSelectButtonClicked(_ sender: UIBarButtonItem) {
