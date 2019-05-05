@@ -80,7 +80,6 @@ class ViewController: UIViewController {
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    updateCollectionViewItemSize()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,25 +104,9 @@ class ViewController: UIViewController {
   }
   
   private func setupCollectionViewItemSize() {
-    if collectionViewFlowLayout == nil {
-      collectionViewFlowLayout = UICollectionViewFlowLayout()
-      
-      collectionViewFlowLayout.sectionInset = UIEdgeInsets.zero
-      collectionViewFlowLayout.scrollDirection = .vertical
-      collectionViewFlowLayout.minimumLineSpacing = lineSpacing
-      collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
-      
-      collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
-    }
-  }
-  
-  private func updateCollectionViewItemSize() {
-    let numberOfItemPerRow: CGFloat = 2
-    
-    let width = (collectionView.frame.width - (numberOfItemPerRow - 1) * interItemSpacing) / numberOfItemPerRow
-    let height = width
-    
-    collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
+    let customLayout = CustomLayout()
+    customLayout.delegate = self
+    collectionView.collectionViewLayout = customLayout
   }
   
   @objc func didSelectButtonClicked(_ sender: UIBarButtonItem) {
@@ -179,5 +162,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
   }
   
+}
+
+extension ViewController: CustomLayoutDelegate {
+  func collectionView(_ collectionView: UICollectionView, sizeOfPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
+    return UIImage(named: items[indexPath.item].imageName)!.size
+  }
 }
 
